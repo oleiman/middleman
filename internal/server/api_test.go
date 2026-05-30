@@ -4723,8 +4723,8 @@ func TestAPIActivityReturnsUTCCreatedAt(t *testing.T) {
 	client := setupTestClient(t, srv)
 	prID := seedPR(t, database, "acme", "widget", 1)
 	ctx := context.Background()
-	//nolint:forbidigo // Test fixture intentionally uses a non-UTC timestamp to verify UTC normalization.
-	createdAt := time.Date(2026, 4, 11, 12, 0, 0, 0, time.FixedZone("EDT", -4*60*60))
+	//nolint:forbidigo // Test fixture intentionally uses a recent non-UTC timestamp to verify UTC normalization; relative to now so it stays inside the activity since-window and never goes stale.
+	createdAt := time.Now().Add(-48 * time.Hour).Truncate(time.Second).In(time.FixedZone("EDT", -4*60*60))
 
 	require.NoError(database.UpsertMREvents(ctx, []db.MREvent{{
 		MergeRequestID: prID,
