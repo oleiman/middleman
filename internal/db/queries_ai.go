@@ -906,3 +906,10 @@ func strPtrToNullable(p *string) any {
 	}
 	return *p
 }
+
+func int64PtrToNullable(p *int64) any {
+	if p == nil {
+		return nil
+	}
+	return *p
+}
