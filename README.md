@@ -67,6 +67,21 @@ Expandable check run section on each PR shows pass/fail/pending status with colo
 - **Reverse proxy support** -- deploy behind a proxy with the `base_path` config
 - **Version info** -- `middleman version` prints the version, commit, and build date
 
+### Use your own terminal Claude on a worktree's review
+
+Register middleman's MCP server once:
+
+```
+claude mcp add middleman -- middleman mcp
+```
+
+Then, from inside any enrolled worktree, run `claude`. It auto-discovers
+that worktree's review (no flags, no IDs) and gets four read-and-discuss
+tools: `list_threads`, `get_thread`, `get_pull`, and `reply_to_thread`.
+It reads the review and replies in the threads; resolving/hiding threads
+and applying edits stay in the middleman app. Requires `middleman` to be
+running (the proxy talks to its loopback API).
+
 ## Quickstart
 
 ### Requirements
